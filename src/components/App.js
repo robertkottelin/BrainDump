@@ -36,7 +36,7 @@ class App extends Component {
     const networkId = await web3.eth.net.getId()
     const networkData = SocialNetwork.networks[networkId]
     if(networkData) {
-      const socialNetwork = new web3.eth.Contract(SocialNetwork.abi, networkData.address)
+      const socialNetwork = new web3.eth.Contract(SocialNetwork.abi, '0x4446AF4FC865A3c2337C4D0cB3107Ca523902BbC')
       this.setState({ socialNetwork })
       const postCount = await socialNetwork.methods.postCount().call()
       const infoCount = await socialNetwork.methods.infoCount().call()

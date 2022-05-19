@@ -12,7 +12,6 @@ contract SocialNetwork {
         uint tipAmount;
     }
 
-
     function setData(string memory _datacontent) public {
         dataCount ++;
         datamapping[dataCount] = Data(dataCount, _datacontent, msg.sender, 0x4Dd66071850Dc267c12D97397E8eD493399d5Aa9, 0);
