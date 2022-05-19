@@ -36,7 +36,7 @@ class App extends Component {
     const networkId = await web3.eth.net.getId()
     const networkData = SocialNetwork.networks[networkId]
     if(networkData) {
-      const socialNetwork = web3.eth.Contract(SocialNetwork.abi, networkData.address)
+      const socialNetwork = new web3.eth.Contract(SocialNetwork.abi, networkData.address)
       this.setState({ socialNetwork })
       const postCount = await socialNetwork.methods.postCount().call()
       const infoCount = await socialNetwork.methods.infoCount().call()
@@ -64,10 +64,9 @@ class App extends Component {
       const info = await socialNetwork.methods.info().call()
       this.setState({ info })
       
-      // Sort posts. Show highest tipped posts first
-      
+      //Sort data
       this.setState({
-        posts: this.state.posts.sort((a,b) => b.tipAmount - a.tipAmount )
+        datamapping: this.state.datamapping.sort((a,b) => b.tipAmount - a.tipAmount )
       })
       this.setState({ loading: false})
     } else {
@@ -78,40 +77,48 @@ class App extends Component {
   setInfo(info) {
     this.setState({ loading: true })
     this.state.socialNetwork.methods.setInfo(info).send({ from: this.state.account })
-    .once('receipt', (receipt) => {
+    .on('receipt', (_receipt) => {
       this.setState({ loading: false })
+      window.location.reload(false);
     })
   }
 
   setData(data) {
     this.setState({ loading: true })
     this.state.socialNetwork.methods.setData(data).send({ from: this.state.account })
-    .once('receipt', (receipt) => {
+    .on('receipt', (_receipt) => {
       this.setState({ loading: false })
+      window.location.reload(false);
     })
+    
   }
+
 
   createPost(content) {
     this.setState({ loading: true })
     this.state.socialNetwork.methods.createPost(content).send({ from: this.state.account })
-    .once('receipt', (receipt) => {
+    .on('receipt', (_receipt) => {
       this.setState({ loading: false })
+      window.location.reload(false);
     })
+    
   }
 
   tipPost(id, tipAmount) {
     this.setState({ loading: true })
     this.state.socialNetwork.methods.tipPost(id).send({ from: this.state.account, value: tipAmount })
-    .once('receipt', (receipt) => {
+    .on('receipt', (_receipt) => {
       this.setState({ loading: false })
+      window.location.reload(false);
     })
   }
 
   payPatient(id, tipAmount) {
     this.setState({ loading: true })
     this.state.socialNetwork.methods.payPatient(id).send({ from: this.state.account, value: tipAmount })
-    .once('receipt', (receipt) => {
+    .on('receipt', (_receipt) => {
       this.setState({ loading: false })
+      window.location.reload(false);
     })
   }
 

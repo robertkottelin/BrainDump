@@ -8,7 +8,7 @@ class Main extends Component {
       <div className="container-fluid mt-5">
         <div className="row">
           <main role="main" className="col-lg-12 ml-auto mr-auto" style={{ maxWidth: '500px' }}>
-            <div className="content mr-auto ml-auto">
+            <div className="content mr-auto ml-auto mx-auto" style={{ width: '100%' }}>
                 <form onSubmit={(event) => {
                   event.preventDefault()
                   const data = this.dataContent.value
@@ -24,12 +24,12 @@ class Main extends Component {
                     placeholder="Dump thought here"
                     required />
                 </div>
-                <button type="submit" className="btn btn-primary btn-block">Dump</button>                
+                <button type="submit" className="btn btn-primary btn-block">Dump</button>            
               </form>
               <p>&nbsp;</p>
               { this.props.datamapping.map((data, key) => {
                 return(
-                  <div className="card" style={{ width: '500px' }} key={key} >
+                  <div className="card justify center mx-auto" style={{ width: '100%' }} key={key} >
                     <div className="card-header">
                       <img
                         className='mr-2'
@@ -45,7 +45,8 @@ class Main extends Component {
                       </li>
                       <li key={key} className="list-group-item py-2">
                         <small className="float-left mt-1 text-muted">
-                          </small>
+                          TIPS: {window.web3.utils.fromWei(data.tipAmount.toString(), 'Ether')} ETH
+                        </small>
                         <button
                           className="btn btn-link btn-sm float-right pt-0"
                           name={data.id}
@@ -55,7 +56,29 @@ class Main extends Component {
                             this.props.payPatient(event.target.name, tipAmount)
                           }}
                         >
-                          Tip Post 0.1 ETH
+                          0.1 ETH
+                        </button>
+                        <button
+                          className="btn btn-link btn-sm float-right pt-0"
+                          name={data.id}
+                          onClick={(event) => {
+                            let tipAmount = window.web3.utils.toWei('0.01', 'Ether')
+                            console.log(event.target.name, tipAmount)
+                            this.props.payPatient(event.target.name, tipAmount)
+                          }}
+                        >
+                          0.01 ETH
+                        </button> 
+                        <button
+                          className="btn btn-link btn-sm float-right pt-0"
+                          name={data.id}
+                          onClick={(event) => {
+                            let tipAmount = window.web3.utils.toWei('0.001', 'Ether')
+                            console.log(event.target.name, tipAmount)
+                            this.props.payPatient(event.target.name, tipAmount)
+                          }}
+                        >
+                          Tip Post 0.001 ETH
                         </button>
                       </li>
                     </ul>
