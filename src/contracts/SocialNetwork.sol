@@ -4,6 +4,7 @@ contract SocialNetwork {
     uint public dataCount = 0;
     mapping(uint => Data) public datamapping;
 
+
     struct Data {
         uint id;
         string dataContent;
