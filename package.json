@@ -22,6 +22,7 @@
     "react-bootstrap": "1.0.0-beta.5",
     "react-dom": "16.8.4",
     "react-scripts": "2.1.3",
+    "solidity": "^0.0.1",
     "truffle": "^5.5.14",
     "web3": "^1.0.0-beta.55"
   },
@@ -44,9 +45,12 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@openzeppelin/truffle-upgrades": "^1.15.0",
     "dotenv": "^16.0.1",
     "ethereumjs-wallet": "^1.0.2",
     "gh-pages": "^2.2.0",
+    "prettier": "^2.7.0",
+    "prettier-plugin-solidity": "^1.0.0-beta.19",
     "truffle-wallet-provider": "^0.0.5"
   }
 }

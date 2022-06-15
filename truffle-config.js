@@ -6,6 +6,7 @@ const HDWalletProvider = require('@truffle/hdwallet-provider');
 
 module.exports = {
   contracts_build_directory: 'src/abis',
+  
   networks: {
     
     development: {
@@ -13,7 +14,7 @@ module.exports = {
       port: 7545,
       network_id: "*" // Match any network id
     },
-
+/*
     rinkeby: {
       provider: () =>
         new HDWalletProvider(
@@ -28,7 +29,7 @@ module.exports = {
       skipDryRun: true
     },
 
-    /*
+
     mainnet: {
       provider: mainNetProvider,
       gas: 4600000,
@@ -36,5 +37,11 @@ module.exports = {
       network_id: "1",
     }
     */
+    
+  "rules": {
+    "max-line-length": ["error",1200]
   }
+    
+  }
+  
 };

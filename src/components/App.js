@@ -3,7 +3,6 @@ import Web3 from 'web3';
 import Identicon from 'identicon.js';
 import './App.css';
 import SocialNetwork from '../abis/SocialNetwork.json'
-import InputData from '../abis/InputData.json'
 import Navbar from './Navbar'
 import Main from './Main'
 
@@ -36,21 +35,11 @@ class App extends Component {
     const networkId = await web3.eth.net.getId()
     const networkData = SocialNetwork.networks[networkId]
     if(networkData) {
-      const socialNetwork = new web3.eth.Contract(SocialNetwork.abi, '0x4446AF4FC865A3c2337C4D0cB3107Ca523902BbC')
+      const socialNetwork = new web3.eth.Contract(SocialNetwork.abi, '0x8694884F9Ea516464832Ad8cfEE9A6437BAd1577')
       this.setState({ socialNetwork })
-      const postCount = await socialNetwork.methods.postCount().call()
-      const infoCount = await socialNetwork.methods.infoCount().call()
       const dataCount = await socialNetwork.methods.dataCount().call()
-      this.setState({ postCount })
       this.setState({ dataCount })
-      // Load Posts
-      for (var i = 1; i <= postCount; i++) {
-        const post = await socialNetwork.methods.posts(i).call()
-        this.setState({
-          posts: [...this.state.posts, post]
-        })
-      }
-      
+      // Load Data      
       for (var p = 1; p <= dataCount; p++) {
         const data = await socialNetwork.methods.datamapping(p).call()
         this.setState({
@@ -59,10 +48,6 @@ class App extends Component {
       }
 
       console.log({ datamapping: this.state.datamapping})
-      
-      //Load Info
-      const info = await socialNetwork.methods.info().call()
-      this.setState({ info })
       
       //Sort data
       this.setState({
@@ -74,15 +59,6 @@ class App extends Component {
     }
   }
 
-  setInfo(info) {
-    this.setState({ loading: true })
-    this.state.socialNetwork.methods.setInfo(info).send({ from: this.state.account })
-    .on('receipt', (_receipt) => {
-      this.setState({ loading: false })
-      window.location.reload(false);
-    })
-  }
-
   setData(data) {
     this.setState({ loading: true })
     this.state.socialNetwork.methods.setData(data).send({ from: this.state.account })
@@ -91,26 +67,6 @@ class App extends Component {
       window.location.reload(false);
     })
     
-  }
-
-
-  createPost(content) {
-    this.setState({ loading: true })
-    this.state.socialNetwork.methods.createPost(content).send({ from: this.state.account })
-    .on('receipt', (_receipt) => {
-      this.setState({ loading: false })
-      window.location.reload(false);
-    })
-    
-  }
-
-  tipPost(id, tipAmount) {
-    this.setState({ loading: true })
-    this.state.socialNetwork.methods.tipPost(id).send({ from: this.state.account, value: tipAmount })
-    .on('receipt', (_receipt) => {
-      this.setState({ loading: false })
-      window.location.reload(false);
-    })
   }
 
   payPatient(id, tipAmount) {
@@ -127,17 +83,10 @@ class App extends Component {
     this.state = {
       account: '',
       socialNetwork: null,
-      postCount: 0,
-      infoCount: 0,
-      posts: [],
-      info: '',
       datamapping: [],
       loading: true
     }
 
-    this.createPost = this.createPost.bind(this)
-    this.tipPost = this.tipPost.bind(this)
-    this.setInfo = this.setInfo.bind(this)
     this.setData = this.setData.bind(this)
     this.payPatient = this.payPatient.bind(this)
   }
@@ -149,19 +98,11 @@ class App extends Component {
         { this.state.loading
           ? <div id="loader" className="text-center mt-5"><p>Loading...</p></div>
           : <Main
-              posts={this.state.posts}
-              //createPost={this.createPost}
-              //tipPost={this.tipPost}
-              //setInfo={this.setInfo}
               setData={this.setData}
               payPatient={this.payPatient}
               datamapping = {this.state.datamapping}
             />
         }
-
-
-        
-        
       </div>
     );
   }
