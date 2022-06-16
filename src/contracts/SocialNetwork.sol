@@ -7,14 +7,24 @@ contract SocialNetwork {
     struct Data {
         uint id;
         string dataContent;
+        string date;
         address payable author;
         address payable hospital;
         uint tipAmount;
         }
 
-    function setData(string memory _datacontent) public {
+    function setData(string memory _datacontent, string memory _date) public {
       dataCount++;
-      datamapping[dataCount] = Data(dataCount, _datacontent, msg.sender, 0x4Dd66071850Dc267c12D97397E8eD493399d5Aa9, 0);
+      datamapping[dataCount] = Data(dataCount, _datacontent, _date, msg.sender, 0x4Dd66071850Dc267c12D97397E8eD493399d5Aa9, 0);
+    }
+
+    function deleteData(uint _id) public {
+      delete datamapping[_id];
+      dataCount--;
+    }
+
+    function editData(uint _i, string memory _datacontent) public {
+      datamapping[_i] = Data(_i, _datacontent, datamapping[_i].date, msg.sender, datamapping[_i].hospital, datamapping[_i].tipAmount);
     }
 
     function payPatient(uint _id) public payable {

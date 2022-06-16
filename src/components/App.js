@@ -35,7 +35,7 @@ class App extends Component {
     const networkId = await web3.eth.net.getId()
     const networkData = SocialNetwork.networks[networkId]
     if(networkData) {
-      const socialNetwork = new web3.eth.Contract(SocialNetwork.abi, '0xb5d09baa6F41FE17d5472A5b3017A77F85B5af74')
+      const socialNetwork = new web3.eth.Contract(SocialNetwork.abi, '0x10d6FDAFcc24C0E724483F1072f18baac38Ab6ce')
       this.setState({ socialNetwork })
       const dataCount = await socialNetwork.methods.dataCount().call()
       this.setState({ dataCount })
@@ -66,7 +66,15 @@ class App extends Component {
       this.setState({ loading: false })
       window.location.reload(false);
     })
-    
+  }
+
+  deleteData() {
+    this.setState({ loading: true })
+    this.state.socialNetwork.methods.deleteData().send({ from: this.state.account })
+    .on('receipt', (_receipt) => {
+      this.setState({ loading: false })
+      window.location.reload(false);
+    })
   }
 
   payPatient(id, tipAmount) {
@@ -88,6 +96,7 @@ class App extends Component {
     }
 
     this.setData = this.setData.bind(this)
+    this.deleteData = this.deleteData.bind(this)
     this.payPatient = this.payPatient.bind(this)
   }
 
@@ -99,6 +108,7 @@ class App extends Component {
           ? <div id="loader" className="text-center mt-5"><p>Loading...</p></div>
           : <Main
               setData={this.setData}
+              deleteData={this.deleteData}
               payPatient={this.payPatient}
               datamapping = {this.state.datamapping}
             />
