@@ -12,7 +12,8 @@ class Main extends Component {
                 <form onSubmit={(event) => {
                   event.preventDefault()
                   const data = this.dataContent.value
-                  this.props.setData(data)
+                  const date = this.dataDate.value
+                  this.props.setData(data, date)
                 }}>
                 <p>&nbsp;</p>
                 <div className="form-group mr-sm-2">
@@ -21,7 +22,16 @@ class Main extends Component {
                     type="text"
                     ref={(input) => { this.dataContent = input }}
                     className="form-control"
-                    placeholder="Dump thought here"
+                    placeholder="Vaccine"
+                    required />
+                </div>
+                <div className="form-group mr-sm-2">
+                  <input
+                    id="dataDate"
+                    type="text"
+                    ref={(input1) => { this.dataDate = input1 }}
+                    className="form-control"
+                    placeholder="Date: XXXXYYZZ"
                     required />
                 </div>
                 <button type="submit" className="btn btn-primary btn-block">Dump</button>            
@@ -45,7 +55,7 @@ class Main extends Component {
                       </li>
                       <li key={key} className="list-group-item py-2">
                         <small className="float-left mt-1 text-muted">
-                          TIPS: {window.web3.utils.fromWei(data.tipAmount.toString(), 'Ether')} ETH
+                          Date: {}
                         </small>
                         <button
                           className="btn btn-link btn-sm float-right pt-0"
