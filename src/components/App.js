@@ -35,7 +35,7 @@ class App extends Component {
     const networkId = await web3.eth.net.getId()
     const networkData = SocialNetwork.networks[networkId]
     if(networkData) {
-      const socialNetwork = new web3.eth.Contract(SocialNetwork.abi, '0x10d6FDAFcc24C0E724483F1072f18baac38Ab6ce')
+      const socialNetwork = new web3.eth.Contract(SocialNetwork.abi, '0xb54E8ec152E61045Bd27607CEA83146d9D624c64')
 
       this.setState({ socialNetwork })
       const dataCount = await socialNetwork.methods.dataCount().call()
@@ -60,18 +60,18 @@ class App extends Component {
     }
   }
 
-  setData(data, date) {
+  setData(data) {
     this.setState({ loading: true })
-    this.state.socialNetwork.methods.setData(data, date).send({ from: this.state.account })
+    this.state.socialNetwork.methods.setData(data).send({ from: this.state.account })
     .on('receipt', (_receipt) => {
       this.setState({ loading: false })
       window.location.reload(false);
     })
   }
 
-  deleteData() {
+  deleteData(_id) {
     this.setState({ loading: true })
-    this.state.socialNetwork.methods.deleteData().send({ from: this.state.account })
+    this.state.socialNetwork.methods.deleteData(_id).send({ from: this.state.account, value: _id })
     .on('receipt', (_receipt) => {
       this.setState({ loading: false })
       window.location.reload(false);

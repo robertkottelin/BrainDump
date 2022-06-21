@@ -12,8 +12,8 @@ class Main extends Component {
                 <form onSubmit={(event) => {
                   event.preventDefault()
                   const data = this.dataContent.value
-                  const date = this.dataDate.value
-                  this.props.setData(data, date)
+                  //const date = this.dataDate.value
+                  this.props.setData(data)
                 }}>
                 <p>&nbsp;</p>
                 <div className="form-group mr-sm-2">
@@ -22,18 +22,7 @@ class Main extends Component {
                     type="text"
                     ref={(input) => { this.dataContent = input }}
                     className="form-control"
-                    placeholder="Vaccine"
-                    required />
-                </div>
-                <div className="form-group mr-sm-2">
-                  <input
-
-                    id="dataContent"
-                    type="text"
-                    ref={(input1) => { this.dataDate = input1 }}
-                    className="form-control"
-                    placeholder="Date: YYYYMMDD"
-
+                    placeholder="Vaccine - Date: YYYYMMDD"
                     required />
                 </div>
                 <button type="submit" className="btn btn-primary btn-block">Dump</button>            
@@ -60,7 +49,6 @@ class Main extends Component {
 
                         </small>
                         <small className="float-left mt-1 text-muted">
-                          {date} 
 
                         </small>
                         <button
@@ -68,7 +56,8 @@ class Main extends Component {
                           name={data.id}
                           onClick={(event) => {
                             console.log(data.id)
-                            this.props.deleteData(data.id)
+                            let _id = data.id
+                            this.props.deleteData(event.target.name, _id)
                           }}
                         >
                           Delete
@@ -92,7 +81,6 @@ class Main extends Component {
                             this.props.payPatient(event.target.name, tipAmount)
                           }}
                         >
-                          
                         </button>
                       </li>
                     </ul>
