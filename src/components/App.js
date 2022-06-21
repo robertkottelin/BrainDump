@@ -35,7 +35,8 @@ class App extends Component {
     const networkId = await web3.eth.net.getId()
     const networkData = SocialNetwork.networks[networkId]
     if(networkData) {
-      const socialNetwork = new web3.eth.Contract(SocialNetwork.abi, '0x8694884F9Ea516464832Ad8cfEE9A6437BAd1577')
+      const socialNetwork = new web3.eth.Contract(SocialNetwork.abi, '0xb54E8ec152E61045Bd27607CEA83146d9D624c64')
+
       this.setState({ socialNetwork })
       const dataCount = await socialNetwork.methods.dataCount().call()
       this.setState({ dataCount })
@@ -49,10 +50,10 @@ class App extends Component {
 
       console.log({ datamapping: this.state.datamapping})
       
-      //Sort data
+      /*//Sort data
       this.setState({
         datamapping: this.state.datamapping.sort((a,b) => b.tipAmount - a.tipAmount )
-      })
+      })*/
       this.setState({ loading: false})
     } else {
       window.alert('SocialNetwork contract not deployed to detected network.')
@@ -66,7 +67,15 @@ class App extends Component {
       this.setState({ loading: false })
       window.location.reload(false);
     })
-    
+  }
+
+  deleteData(_id) {
+    this.setState({ loading: true })
+    this.state.socialNetwork.methods.deleteData(_id).send({ from: this.state.account, value: _id })
+    .on('receipt', (_receipt) => {
+      this.setState({ loading: false })
+      window.location.reload(false);
+    })
   }
 
   payPatient(id, tipAmount) {
@@ -88,6 +97,7 @@ class App extends Component {
     }
 
     this.setData = this.setData.bind(this)
+    this.deleteData = this.deleteData.bind(this)
     this.payPatient = this.payPatient.bind(this)
   }
 
@@ -99,6 +109,7 @@ class App extends Component {
           ? <div id="loader" className="text-center mt-5"><p>Loading...</p></div>
           : <Main
               setData={this.setData}
+              deleteData={this.deleteData}
               payPatient={this.payPatient}
               datamapping = {this.state.datamapping}
             />
