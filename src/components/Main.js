@@ -27,11 +27,13 @@ class Main extends Component {
                 </div>
                 <div className="form-group mr-sm-2">
                   <input
-                    id="dataDate"
+
+                    id="dataContent"
                     type="text"
                     ref={(input1) => { this.dataDate = input1 }}
                     className="form-control"
-                    placeholder="Date: XXXXYYZZ"
+                    placeholder="Date: YYYYMMDD"
+
                     required />
                 </div>
                 <button type="submit" className="btn btn-primary btn-block">Dump</button>            
@@ -55,30 +57,32 @@ class Main extends Component {
                       </li>
                       <li key={key} className="list-group-item py-2">
                         <small className="float-left mt-1 text-muted">
-                          Date: {}
+
+                        </small>
+                        <small className="float-left mt-1 text-muted">
+                          {date} 
+
                         </small>
                         <button
                           className="btn btn-link btn-sm float-right pt-0"
                           name={data.id}
                           onClick={(event) => {
-                            let tipAmount = window.web3.utils.toWei('0.1', 'Ether')
-                            console.log(event.target.name, tipAmount)
-                            this.props.payPatient(event.target.name, tipAmount)
+                            console.log(data.id)
+                            this.props.deleteData(data.id)
                           }}
                         >
-                          0.1 ETH
+                          Delete
                         </button>
                         <button
                           className="btn btn-link btn-sm float-right pt-0"
                           name={data.id}
                           onClick={(event) => {
-                            let tipAmount = window.web3.utils.toWei('0.01', 'Ether')
-                            console.log(event.target.name, tipAmount)
-                            this.props.payPatient(event.target.name, tipAmount)
+                            console.log(data.id)
+                            this.props.deleteData(data.id)
                           }}
                         >
-                          0.01 ETH
-                        </button> 
+                          Date {data.date}
+                        </button>
                         <button
                           className="btn btn-link btn-sm float-right pt-0"
                           name={data.id}
@@ -88,7 +92,7 @@ class Main extends Component {
                             this.props.payPatient(event.target.name, tipAmount)
                           }}
                         >
-                          Pay author 0.001 ETH
+                          
                         </button>
                       </li>
                     </ul>
