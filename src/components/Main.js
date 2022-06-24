@@ -25,7 +25,7 @@ class Main extends Component {
                     placeholder="Vaccine - Date: YYYYMMDD"
                     required />
                 </div>
-                <button type="submit" className="btn btn-primary btn-block">Dump</button>            
+                <button type="submit" className="btn btn-primary btn-block">Save to blockchain</button>            
               </form>
               <p>&nbsp;</p>
               { this.props.datamapping.map((data, key) => {
@@ -62,7 +62,7 @@ class Main extends Component {
                             
                           }}
                         >
-                          Delete
+                          Delete from blockchain
                         </button>
                         <button
                           className="btn btn-link btn-sm float-right pt-0"
@@ -70,7 +70,7 @@ class Main extends Component {
                           onClick={(event) => {
                           }}
                         >
-                          Date {data.date}
+
                         </button>
                         <button
                           className="btn btn-link btn-sm float-right pt-0"

@@ -26,7 +26,7 @@
     "truffle": "^5.5.14",
     "web3": "^1.0.0-beta.55"
   },
-  "homepage": "http://dappuniversity.github.io/social-network",
+  "homepage": "",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
