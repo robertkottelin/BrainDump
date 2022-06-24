@@ -1,3 +1,6 @@
+Patients can only see their own entries
+
+DONE:
 Add date
 Edit entry (on the blockchain)
 delete entry (from the blockchain)
