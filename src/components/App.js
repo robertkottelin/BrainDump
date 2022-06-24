@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import Web3 from 'web3';
 import Identicon from 'identicon.js';
 import './App.css';
-import SocialNetwork from '../abis/SocialNetwork.json'
-import Navbar from './Navbar'
-import Main from './Main'
+import SocialNetwork from '../abis/SocialNetwork.json';
+import Navbar from './Navbar';
+import Main from './Main';
 
 class App extends Component {
 
@@ -35,7 +35,7 @@ class App extends Component {
     const networkId = await web3.eth.net.getId()
     const networkData = SocialNetwork.networks[networkId]
     if(networkData) {
-      const socialNetwork = new web3.eth.Contract(SocialNetwork.abi, '0xb54E8ec152E61045Bd27607CEA83146d9D624c64')
+      const socialNetwork = new web3.eth.Contract(SocialNetwork.abi, '0xFd6a7526499e589B5923b3626488b5D10a1c8C93')
 
       this.setState({ socialNetwork })
       const dataCount = await socialNetwork.methods.dataCount().call()
@@ -43,6 +43,8 @@ class App extends Component {
       // Load Data      
       for (var p = 1; p <= dataCount; p++) {
         const data = await socialNetwork.methods.datamapping(p).call()
+        //const _id = data.id;
+        //console.log(typeof _id)
         this.setState({
           datamapping: [...this.state.datamapping, data]
         })
@@ -69,15 +71,15 @@ class App extends Component {
     })
   }
 
-  deleteData(_id) {
+  deleteData(id) {
     this.setState({ loading: true })
-    this.state.socialNetwork.methods.deleteData(_id).send({ from: this.state.account, value: _id })
+    this.state.socialNetwork.methods.deleteData(id).send({ from: this.state.account })
     .on('receipt', (_receipt) => {
       this.setState({ loading: false })
       window.location.reload(false);
     })
   }
-
+/*
   payPatient(id, tipAmount) {
     this.setState({ loading: true })
     this.state.socialNetwork.methods.payPatient(id).send({ from: this.state.account, value: tipAmount })
@@ -86,6 +88,7 @@ class App extends Component {
       window.location.reload(false);
     })
   }
+  */
 
   constructor(props) {
     super(props)
@@ -98,7 +101,7 @@ class App extends Component {
 
     this.setData = this.setData.bind(this)
     this.deleteData = this.deleteData.bind(this)
-    this.payPatient = this.payPatient.bind(this)
+    //this.payPatient = this.payPatient.bind(this)
   }
 
   render() {

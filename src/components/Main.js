@@ -55,9 +55,11 @@ class Main extends Component {
                           className="btn btn-link btn-sm float-right pt-0"
                           name={data.id}
                           onClick={(event) => {
-                            console.log(data.id)
-                            let _id = data.id
-                            this.props.deleteData(event.target.name, _id)
+                            event.preventDefault()
+                            //const data = this.dataContent.value
+                            console.log(Number(data.id))
+                            this.props.deleteData(Number(data.id));
+                            
                           }}
                         >
                           Delete
@@ -66,8 +68,6 @@ class Main extends Component {
                           className="btn btn-link btn-sm float-right pt-0"
                           name={data.id}
                           onClick={(event) => {
-                            console.log(data.id)
-                            this.props.deleteData(data.id)
                           }}
                         >
                           Date {data.date}
@@ -76,9 +76,9 @@ class Main extends Component {
                           className="btn btn-link btn-sm float-right pt-0"
                           name={data.id}
                           onClick={(event) => {
-                            let tipAmount = window.web3.utils.toWei('0.001', 'Ether')
+                            /*let tipAmount = window.web3.utils.toWei('0.001', 'Ether')
                             console.log(event.target.name, tipAmount)
-                            this.props.payPatient(event.target.name, tipAmount)
+                            this.props.payPatient(event.target.name, tipAmount)*/
                           }}
                         >
                         </button>

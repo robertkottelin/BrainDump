@@ -41,7 +41,7 @@ module.exports = {
   "rules": {
     "max-line-length": ["error",1200]
   }
-    
+
   }
   
 };
