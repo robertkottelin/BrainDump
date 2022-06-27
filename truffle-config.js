@@ -6,6 +6,7 @@ const HDWalletProvider = require('@truffle/hdwallet-provider');
 
 module.exports = {
   contracts_build_directory: 'src/abis',
+  contracts_directory: 'src/contracts',
   
   networks: {
     

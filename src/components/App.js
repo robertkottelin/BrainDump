@@ -36,7 +36,7 @@ class App extends Component {
     const networkId = await web3.eth.net.getId()
     const networkData = SocialNetwork.networks[networkId]
     if(networkData) {
-      const socialNetwork = new web3.eth.Contract(SocialNetwork.abi, '0xFd6a7526499e589B5923b3626488b5D10a1c8C93')
+      const socialNetwork = new web3.eth.Contract(SocialNetwork.abi, '0x6c68E16857555482d9Ab182d1dd702Cb3F689a27')
 
       this.setState({ socialNetwork })
       const dataCount = await socialNetwork.methods.dataCount().call()
@@ -61,6 +61,12 @@ class App extends Component {
     } else {
       window.alert('SocialNetwork contract not deployed to detected network.')
     }
+  }
+
+  async loadThisUser() {
+    const thisuser = this.props.account;
+    console.log(typeof(this.props.account))
+    return(thisuser)
   }
 
   setData(data) {
@@ -116,11 +122,11 @@ class App extends Component {
               deleteData={this.deleteData}
               payPatient={this.payPatient}
               datamapping = {this.state.datamapping}
+              loadThisUser
             />
         }
       </div>
     );
   }
 }
-
 export default App;
